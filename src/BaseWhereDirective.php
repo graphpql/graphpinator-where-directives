@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
 abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
     implements \Graphpinator\Directive\Contract\ExecutableDefinition
@@ -10,63 +10,79 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
     use \Graphpinator\Directive\Contract\TExecutableDefinition;
 
     protected const TYPE = '';
-    protected const TYPE_NAME = '';
 
     public function validateType(
-        ?\Graphpinator\Type\Contract\Definition $definition,
+        \Graphpinator\Type\Contract\Definition $definition,
         \Graphpinator\Value\ArgumentValueSet $arguments,
     ) : bool
     {
-        return $definition instanceof \Graphpinator\Type\Contract\Definition
-            ? $definition->getShapingType() instanceof \Graphpinator\Type\ListType
-            : false;
-    }
+        $shapingType = $definition->getShapingType();
 
-    protected static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $where) : string|int|float|bool|array|null
-    {
-        $whereArr = \is_string($where)
-            ? \array_reverse(\explode('.', $where))
-            : [];
-
-        $resolvedValue = static::extractValueImpl($singleValue, $whereArr);
-
-        if ($resolvedValue instanceof \Graphpinator\Value\NullResolvedValue || $resolvedValue->getType() instanceof (static::TYPE)) {
-            return $resolvedValue->getRawValue();
+        if (!$shapingType instanceof \Graphpinator\Type\ListType) {
+            return false;
         }
 
-        throw new \Graphpinator\Exception\Directive\InvalidValueType(static::NAME, static::TYPE_NAME, $resolvedValue);
+        $fieldStr = $arguments->offsetGet('field')->getValue()->getRawValue();
+        $field = \is_string($fieldStr)
+            ? \array_reverse(\explode('.', $fieldStr))
+            : [];
+
+        return self::recursiveValidateType($shapingType->getInnerType(), $field);
     }
 
-    protected static function extractValueImpl(\Graphpinator\Value\ResolvedValue $singleValue, array& $where) : \Graphpinator\Value\ResolvedValue
+    protected static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $fieldStr) : string|int|float|bool|array|null
     {
-        if (\count($where) === 0) {
+        $field = \is_string($fieldStr)
+            ? \array_reverse(\explode('.', $fieldStr))
+            : [];
+
+        return self::recursiveExtractValue($singleValue, $field)->getRawValue();
+    }
+
+    private static function recursiveExtractValue(\Graphpinator\Value\ResolvedValue $singleValue, array& $field) : \Graphpinator\Value\ResolvedValue
+    {
+        if (\count($field) === 0) {
             return $singleValue;
         }
 
-        $currentWhere = \array_pop($where);
+        $currentWhere = \array_pop($field);
 
         if (\is_numeric($currentWhere)) {
+            \assert($singleValue instanceof \Graphpinator\Value\ListValue);
             $currentWhere = (int) $currentWhere;
 
-            if (!$singleValue instanceof \Graphpinator\Value\ListValue) {
-                throw new \Graphpinator\Exception\Directive\ExpectedListValue($currentWhere, $singleValue);
-            }
-
             if (!$singleValue->offsetExists($currentWhere)) {
-                throw new \Graphpinator\Exception\Directive\InvalidListOffset($currentWhere);
+                return new \Graphpinator\Value\NullResolvedValue($singleValue->getType());
             }
 
-            return static::extractValueImpl($singleValue->offsetGet($currentWhere), $where);
+            return static::recursiveExtractValue($singleValue->offsetGet($currentWhere), $field);
         }
 
-        if (!$singleValue instanceof \Graphpinator\Value\TypeValue) {
-            throw new \Graphpinator\Exception\Directive\ExpectedTypeValue($currentWhere, $singleValue);
+        return static::recursiveExtractValue($singleValue->{$currentWhere}->getValue(), $field);
+    }
+
+    private static function recursiveValidateType(\Graphpinator\Type\Contract\Definition $definition, array& $field) : bool
+    {
+        $definition = $definition->getShapingType();
+
+        if (\count($field) === 0) {
+            return $definition instanceof (static::TYPE);
         }
 
-        if (!isset($singleValue->{$currentWhere})) {
-            throw new \Graphpinator\Exception\Directive\InvalidFieldOffset($currentWhere, $singleValue);
+        $currentWhere = \array_pop($field);
+
+        if (\is_numeric($currentWhere)) {
+            if ($definition instanceof \Graphpinator\Type\ListType) {
+                return self::recursiveValidateType($definition->getInnerType(), $field);
+            }
+
+            return false;
         }
 
-        return static::extractValueImpl($singleValue->{$currentWhere}->getValue(), $where);
+        if ($definition instanceof \Graphpinator\Type\Type && $definition->getFields()->offsetExists($currentWhere)) {
+            return self::recursiveValidateType($definition->getFields()->offsetGet($currentWhere)->getType(), $field);
+        }
+
+        return false;
     }
 }

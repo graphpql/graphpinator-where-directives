@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
-final class StringWhereDirective extends \Graphpinator\Directive\Where\BaseWhereDirective
+final class StringWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDirective
 {
     protected const NAME = 'stringWhere';
     protected const DESCRIPTION = 'Graphpinator stringWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\StringType::class;
-    protected const TYPE_NAME = 'String';
 
     public function __construct()
     {

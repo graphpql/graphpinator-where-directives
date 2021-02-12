@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
-final class FloatWhereDirective extends \Graphpinator\Directive\Where\BaseWhereDirective
+final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDirective
 {
     protected const NAME = 'floatWhere';
     protected const DESCRIPTION = 'Graphpinator floatWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\FloatType::class;
-    protected const TYPE_NAME = 'Float';
 
     public function __construct()
     {

@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
-final class BooleanWhereDirective extends \Graphpinator\Directive\Where\BaseWhereDirective
+final class BooleanWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDirective
 {
     protected const NAME = 'booleanWhere';
     protected const DESCRIPTION = 'Graphpinator booleanWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\BooleanType::class;
-    protected const TYPE_NAME = 'Boolean';
 
     public function __construct()
     {

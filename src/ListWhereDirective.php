@@ -2,17 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
-final class ListWhereDirective extends \Graphpinator\Directive\Where\BaseWhereDirective
+final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDirective
 {
     protected const NAME = 'listWhere';
     protected const DESCRIPTION = 'Graphpinator listWhere directive.';
     protected const TYPE = \Graphpinator\Type\ListType::class;
-    protected const TYPE_NAME = 'List';
 
     public function __construct(
-        private \Graphpinator\Directive\Constraint\IntConstraintDirective $intConstraintDirective,
+        private \Graphpinator\ConstraintDirectives\IntConstraintDirective $intConstraintDirective,
     )
     {
         parent::__construct(

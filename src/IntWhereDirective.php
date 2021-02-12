@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Graphpinator\Directive\Where;
+namespace Graphpinator\WhereDirectives;
 
-final class IntWhereDirective extends \Graphpinator\Directive\Where\BaseWhereDirective
+final class IntWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDirective
 {
     protected const NAME = 'intWhere';
     protected const DESCRIPTION = 'Graphpinator intWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\IntType::class;
-    protected const TYPE_NAME = 'Int';
 
     public function __construct()
     {
