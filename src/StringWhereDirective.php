@@ -10,38 +10,6 @@ final class StringWhereDirective extends \Graphpinator\WhereDirectives\BaseWhere
     protected const DESCRIPTION = 'Graphpinator stringWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\StringType::class;
 
-    public function __construct()
-    {
-        parent::__construct(
-            [
-                \Graphpinator\Directive\ExecutableDirectiveLocation::FIELD,
-            ],
-            true,
-        );
-
-        $this->fieldAfterFn = static function (
-            \Graphpinator\Value\ListResolvedValue $value,
-            ?string $field,
-            bool $not,
-            ?string $equals,
-            ?string $contains,
-            ?string $startsWith,
-            ?string $endsWith,
-            bool $orNull,
-        ) : string {
-            foreach ($value as $key => $item) {
-                $singleValue = self::extractValue($item, $field);
-                $condition = self::satisfiesCondition($singleValue, $equals, $contains, $startsWith, $endsWith, $orNull);
-
-                if ($condition === $not) {
-                    unset($value[$key]);
-                }
-            }
-
-            return \Graphpinator\Directive\FieldDirectiveResult::NONE;
-        };
-    }
-
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
@@ -57,19 +25,8 @@ final class StringWhereDirective extends \Graphpinator\WhereDirectives\BaseWhere
         ]);
     }
 
-    private static function satisfiesCondition(
-        ?string $value,
-        ?string $equals,
-        ?string $contains,
-        ?string $startsWith,
-        ?string $endsWith,
-        bool $orNull,
-    ) : bool
+    protected static function satisfiesCondition(string $value, ?string $equals, ?string $contains, ?string $startsWith, ?string $endsWith) : bool
     {
-        if ($value === null) {
-            return $orNull;
-        }
-
         if (\is_string($equals) && $value !== $equals) {
             return false;
         }

@@ -10,50 +10,20 @@ final class BooleanWhereDirective extends \Graphpinator\WhereDirectives\BaseWher
     protected const DESCRIPTION = 'Graphpinator booleanWhere directive.';
     protected const TYPE = \Graphpinator\Type\Scalar\BooleanType::class;
 
-    public function __construct()
-    {
-        parent::__construct(
-            [
-                \Graphpinator\Directive\ExecutableDirectiveLocation::FIELD,
-            ],
-            true,
-        );
-
-        $this->fieldAfterFn = static function (
-            \Graphpinator\Value\ListResolvedValue $value,
-            ?string $field,
-            ?bool $equals,
-            bool $orNull,
-        ) : string {
-            foreach ($value as $key => $item) {
-                $singleValue = self::extractValue($item, $field);
-                $condition = self::satisfiesCondition($singleValue, $equals, $orNull);
-
-                if (!$condition) {
-                    unset($value[$key]);
-                }
-            }
-
-            return \Graphpinator\Directive\FieldDirectiveResult::NONE;
-        };
-    }
-
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
             \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
+            \Graphpinator\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
+                ->setDefaultValue(false),
             \Graphpinator\Argument\Argument::create('equals', \Graphpinator\Container\Container::Boolean()),
             \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
     }
 
-    private static function satisfiesCondition(?bool $value, ?bool $equals, bool $orNull) : bool
+    protected static function satisfiesCondition(bool $value, ?bool $equals) : bool
     {
-        if ($value === null) {
-            return $orNull;
-        }
-
         if (\is_bool($equals) && $value !== $equals) {
             return false;
         }

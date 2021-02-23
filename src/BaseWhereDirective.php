@@ -5,10 +5,9 @@ declare(strict_types = 1);
 namespace Graphpinator\WhereDirectives;
 
 abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
-    implements \Graphpinator\Directive\Contract\ExecutableDefinition
+    implements \Graphpinator\Directive\Contract\FieldLocation
 {
-    use \Graphpinator\Directive\Contract\TExecutableDefinition;
-
+    protected const REPEATABLE = true;
     protected const TYPE = '';
 
     public function validateType(
@@ -30,7 +29,40 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
         return self::recursiveValidateType($shapingType->getInnerType(), $field);
     }
 
-    protected static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $fieldStr) : string|int|float|bool|array|null
+    public function resolveFieldBefore(\Graphpinator\Value\ArgumentValueSet $arguments) : string
+    {
+        return \Graphpinator\Directive\FieldDirectiveResult::NONE;
+    }
+
+    public function resolveFieldAfter(
+        \Graphpinator\Value\FieldValue $fieldValue,
+        \Graphpinator\Value\ArgumentValueSet $arguments,
+    ) : string
+    {
+        $listValue = $fieldValue->getValue();
+        \assert($listValue instanceof \Graphpinator\Value\ListResolvedValue);
+
+        $argumentValues = $arguments->getValuesForResolver();
+        $fieldArgument = $argumentValues['field'];
+        $notArgument = $argumentValues['not'];
+        $orNullArgument = $argumentValues['orNull'];
+        unset($argumentValues['field'], $argumentValues['not'], $argumentValues['orNull']);
+
+        foreach ($listValue as $key => $singleValue) {
+            $rawValue = self::extractValue($singleValue, $fieldArgument);
+            $condition = $rawValue === null
+                ? $orNullArgument
+                : static::satisfiesCondition($rawValue, ...$argumentValues);
+
+            if ($condition === $notArgument) {
+                unset($listValue[$key]);
+            }
+        }
+
+        return \Graphpinator\Directive\FieldDirectiveResult::NONE;
+    }
+
+    private static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $fieldStr) : string|int|float|bool|array|null
     {
         $field = \is_string($fieldStr)
             ? \array_reverse(\explode('.', $fieldStr))

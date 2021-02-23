@@ -12,35 +12,7 @@ final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDi
 
     public function __construct(
         private \Graphpinator\ConstraintDirectives\IntConstraintDirective $intConstraintDirective,
-    )
-    {
-        parent::__construct(
-            [
-                \Graphpinator\Directive\ExecutableDirectiveLocation::FIELD,
-            ],
-            true,
-        );
-
-        $this->fieldAfterFn = static function (
-            \Graphpinator\Value\ListResolvedValue $value,
-            ?string $field,
-            bool $not,
-            ?int $minItems,
-            ?int $maxItems,
-            bool $orNull,
-        ) : string {
-            foreach ($value as $key => $item) {
-                $singleValue = self::extractValue($item, $field);
-                $condition = self::satisfiesCondition($singleValue, $minItems, $maxItems, $orNull);
-
-                if ($condition === $not) {
-                    unset($value[$key]);
-                }
-            }
-
-            return \Graphpinator\Directive\FieldDirectiveResult::NONE;
-        };
-    }
+    ) {}
 
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {
@@ -63,12 +35,8 @@ final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDi
         ]);
     }
 
-    private static function satisfiesCondition(?array $value, ?int $minItems, ?int $maxItems, bool $orNull) : bool
+    protected static function satisfiesCondition(array $value, ?int $minItems, ?int $maxItems) : bool
     {
-        if ($value === null) {
-            return $orNull;
-        }
-
         if (\is_int($minItems) && \count($value) < $minItems) {
             return false;
         }
