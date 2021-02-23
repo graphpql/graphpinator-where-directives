@@ -52,7 +52,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
             $rawValue = self::extractValue($singleValue, $fieldArgument);
             $condition = $rawValue === null
                 ? $orNullArgument
-                : static::satisfiesCondition($rawValue, ...$argumentValues);
+                : static::satisfiesCondition($rawValue, ...$argumentValues); // @phpstan-ignore-line
 
             if ($condition === $notArgument) {
                 unset($listValue[$key]);
@@ -80,7 +80,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
         $currentWhere = \array_pop($field);
 
         if (\is_numeric($currentWhere)) {
-            \assert($singleValue instanceof \Graphpinator\Value\ListValue);
+            \assert($singleValue instanceof \Graphpinator\Value\ListResolvedValue);
             $currentWhere = (int) $currentWhere;
 
             if (!$singleValue->offsetExists($currentWhere)) {
