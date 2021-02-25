@@ -10,23 +10,23 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
     protected const REPEATABLE = true;
     protected const TYPE = '';
 
-    public function validateType(
-        \Graphpinator\Type\Contract\Definition $definition,
+    public function validateFieldUsage(
+        \Graphpinator\Field\Field $field,
         \Graphpinator\Value\ArgumentValueSet $arguments,
     ) : bool
     {
-        $shapingType = $definition->getShapingType();
+        $shapingType = $field->getType()->getShapingType();
 
         if (!$shapingType instanceof \Graphpinator\Type\ListType) {
             return false;
         }
 
         $fieldStr = $arguments->offsetGet('field')->getValue()->getRawValue();
-        $field = \is_string($fieldStr)
+        $where = \is_string($fieldStr)
             ? \array_reverse(\explode('.', $fieldStr))
             : [];
 
-        return self::recursiveValidateType($shapingType->getInnerType(), $field);
+        return self::recursiveValidateType($shapingType->getInnerType(), $where);
     }
 
     public function resolveFieldBefore(\Graphpinator\Value\ArgumentValueSet $arguments) : string
@@ -35,8 +35,8 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
     }
 
     public function resolveFieldAfter(
-        \Graphpinator\Value\FieldValue $fieldValue,
         \Graphpinator\Value\ArgumentValueSet $arguments,
+        \Graphpinator\Value\FieldValue $fieldValue,
     ) : string
     {
         $listValue = $fieldValue->getValue();
