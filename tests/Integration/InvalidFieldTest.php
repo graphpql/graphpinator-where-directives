@@ -35,7 +35,7 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
      */
     public function testSimple(Json $request) : void
     {
-        $this->expectException(\Graphpinator\Exception\Normalizer\DirectiveIncorrectType::class);
+        $this->expectException(\Graphpinator\Exception\Normalizer\DirectiveIncorrectUsage::class);
         $this->getGraphpinator()->run(new \Graphpinator\Request\JsonRequestFactory($request));
     }
 

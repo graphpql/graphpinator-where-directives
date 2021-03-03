@@ -12,8 +12,8 @@
     }
   ],
   "require": {
-    "infinityloop-dev/graphpinator": "^1.0-rc10",
-    "infinityloop-dev/graphpinator-constraint-directives": "^1.0-rc3",
+    "infinityloop-dev/graphpinator": "^1.0-rc11",
+    "infinityloop-dev/graphpinator-constraint-directives": "^1.0-rc4",
     "infinityloop-dev/utils": "^2.1.2",
     "nette/utils": "^3.2"
   },
