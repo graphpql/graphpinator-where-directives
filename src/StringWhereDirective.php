@@ -8,7 +8,7 @@ final class StringWhereDirective extends \Graphpinator\WhereDirectives\BaseWhere
 {
     protected const NAME = 'stringWhere';
     protected const DESCRIPTION = 'Graphpinator stringWhere directive.';
-    protected const TYPE = \Graphpinator\Type\Scalar\StringType::class;
+    protected const TYPE = \Graphpinator\Type\Spec\StringType::class;
 
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {

@@ -8,7 +8,7 @@ final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereD
 {
     protected const NAME = 'floatWhere';
     protected const DESCRIPTION = 'Graphpinator floatWhere directive.';
-    protected const TYPE = \Graphpinator\Type\Scalar\FloatType::class;
+    protected const TYPE = \Graphpinator\Type\Spec\FloatType::class;
 
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {

@@ -8,7 +8,7 @@ final class IntWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDir
 {
     protected const NAME = 'intWhere';
     protected const DESCRIPTION = 'Graphpinator intWhere directive.';
-    protected const TYPE = \Graphpinator\Type\Scalar\IntType::class;
+    protected const TYPE = \Graphpinator\Type\Spec\IntType::class;
 
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {

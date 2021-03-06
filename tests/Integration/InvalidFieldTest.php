@@ -35,7 +35,7 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
      */
     public function testSimple(Json $request) : void
     {
-        $this->expectException(\Graphpinator\Exception\Normalizer\DirectiveIncorrectUsage::class);
+        $this->expectException(\Graphpinator\Normalizer\Exception\DirectiveIncorrectUsage::class);
         $this->getGraphpinator()->run(new \Graphpinator\Request\JsonRequestFactory($request));
     }
 
@@ -43,25 +43,7 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
     {
         return new \Graphpinator\Graphpinator(
             new \Graphpinator\Type\Schema(
-                new class extends \Graphpinator\Container\Container {
-                    public function getType(string $name) : ?\Graphpinator\Type\Contract\NamedDefinition
-                    {
-                        return \Graphpinator\WhereDirectives\Tests\TestDIContainer::getType($name);
-                    }
-
-                    public function getTypes(bool $includeBuiltIn = false) : array
-                    {
-                    }
-
-                    public function getDirective(string $name) : ?\Graphpinator\Directive\Directive
-                    {
-                        return \Graphpinator\WhereDirectives\Tests\TestDIContainer::getType($name);
-                    }
-
-                    public function getDirectives(bool $includeBuiltIn = false) : array
-                    {
-                    }
-                },
+                \Graphpinator\WhereDirectives\Tests\TestDIContainer::getTypeContainer(),
                 new class extends \Graphpinator\Type\Type {
                     public function validateNonNullValue(mixed $rawValue) : bool
                     {

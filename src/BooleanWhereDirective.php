@@ -8,7 +8,7 @@ final class BooleanWhereDirective extends \Graphpinator\WhereDirectives\BaseWher
 {
     protected const NAME = 'booleanWhere';
     protected const DESCRIPTION = 'Graphpinator booleanWhere directive.';
-    protected const TYPE = \Graphpinator\Type\Scalar\BooleanType::class;
+    protected const TYPE = \Graphpinator\Type\Spec\BooleanType::class;
 
     protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
     {

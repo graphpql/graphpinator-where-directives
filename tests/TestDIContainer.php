@@ -12,6 +12,24 @@ final class TestDIContainer
     private static ?\Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor $accessor = null;
     private static ?\Graphpinator\Container\Container $container = null;
 
+    public static function getTypeContainer() : \Graphpinator\Container\Container
+    {
+        return new \Graphpinator\Container\SimpleContainer([
+            'ListConstraintInput' => self::getType('ListConstraintInput'),
+        ], [
+            'stringConstraint' => self::getType('stringConstraint'),
+            'intConstraint' => self::getType('intConstraint'),
+            'floatConstraint' => self::getType('floatConstraint'),
+            'listConstraint' => self::getType('listConstraint'),
+            'objectConstraint' => self::getType('objectConstraint'),
+            'stringWhere' => self::getType('stringWhere'),
+            'intWhere' => self::getType('intWhere'),
+            'floatWhere' => self::getType('floatWhere'),
+            'booleanWhere' => self::getType('booleanWhere'),
+            'listWhere' => self::getType('listWhere'),
+        ]);
+    }
+
     public static function getType(string $name): object
     {
         if (\array_key_exists($name, self::$types)) {
