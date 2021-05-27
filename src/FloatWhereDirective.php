@@ -10,7 +10,20 @@ final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereD
     protected const DESCRIPTION = 'Graphpinator floatWhere directive.';
     protected const TYPE = \Graphpinator\Type\Spec\FloatType::class;
 
-    protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
+    protected static function satisfiesCondition(float $value, ?float $equals, ?float $greaterThan, ?float $lessThan) : bool
+    {
+        if (\is_float($equals) && $value !== $equals) {
+            return false;
+        }
+
+        if (\is_float($greaterThan) && $value < $greaterThan) {
+            return false;
+        }
+
+        return !\is_float($lessThan) || $value <= $lessThan;
+    }
+
+    protected function getFieldDefinition() : \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
             \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
@@ -22,22 +35,5 @@ final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereD
             \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
-    }
-
-    protected static function satisfiesCondition(float $value, ?float $equals, ?float $greaterThan, ?float $lessThan) : bool
-    {
-        if (\is_float($equals) && $value !== $equals) {
-            return false;
-        }
-
-        if (\is_float($greaterThan) && $value < $greaterThan) {
-            return false;
-        }
-
-        if (\is_float($lessThan) && $value > $lessThan) {
-            return false;
-        }
-
-        return true;
     }
 }

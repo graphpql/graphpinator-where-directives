@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Graphpinator\WhereDirectives\Tests\Integration;
 
-use Infinityloop\Utils\Json;
+use \Infinityloop\Utils\Json;
 
 final class FilterTest extends \PHPUnit\Framework\TestCase
 {
@@ -237,9 +237,17 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
                 Json::fromNative((object) [
                     'query' => '{ listList @listWhere(minItems: 2) }',
                 ]),
-                Json::fromNative((object) ['data' => ['listList' =>
-                    [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]],
-                ]]),
+                Json::fromNative((object) [
+                    'data' => [
+                        'listList' => [
+                            [1, 0],
+                            [2, 1],
+                            [3, 2],
+                            [4, 3],
+                            [5, 4],
+                        ],
+                    ],
+                ]),
             ],
             [
                 Json::fromNative((object) [
@@ -257,9 +265,17 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
                 Json::fromNative((object) [
                     'query' => '{ listList @listWhere(maxItems: 2) }',
                 ]),
-                Json::fromNative((object) ['data' => ['listList' =>
-                    [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]],
-                ]]),
+                Json::fromNative((object) [
+                    'data' => [
+                        'listList' => [
+                            [1, 0],
+                            [2, 1],
+                            [3, 2],
+                            [4, 3],
+                            [5, 4],
+                        ],
+                    ],
+                ]),
             ],
             [
                 Json::fromNative((object) [
@@ -289,7 +305,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
                 Json::fromNative((object) [
                     'query' => '{ listList @intWhere(field: "3", orNull: true) }',
                 ]),
-                Json::fromNative((object) ['data' => ['listList' => [[1,0],[2,1],[3,2],[4,3],[5,4]]]]),
+                Json::fromNative((object) ['data' => ['listList' => [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]]]]),
             ],
         ];
     }
@@ -300,8 +316,8 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
      * @dataProvider simpleFloatDataProvider
      * @dataProvider simpleBoolDataProvider
      * @dataProvider simpleListDataProvider
-     * @param Json $request
-     * @param Json $expected
+     * @param \Infinityloop\Utils\Json $request
+     * @param \Infinityloop\Utils\Json $expected
      */
     public function testSimple(Json $request, Json $expected) : void
     {
@@ -398,7 +414,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
                             ),
                         ]);
                     }
-                }
+                },
             ),
         );
     }

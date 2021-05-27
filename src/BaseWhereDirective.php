@@ -4,8 +4,7 @@ declare(strict_types = 1);
 
 namespace Graphpinator\WhereDirectives;
 
-abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
-    implements \Graphpinator\Directive\Contract\FieldLocation
+abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive implements \Graphpinator\Directive\Contract\FieldLocation
 {
     protected const REPEATABLE = true;
     protected const TYPE = '';
@@ -71,7 +70,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
         return self::recursiveExtractValue($singleValue, $field)->getRawValue();
     }
 
-    private static function recursiveExtractValue(\Graphpinator\Value\ResolvedValue $singleValue, array& $field) : \Graphpinator\Value\ResolvedValue
+    private static function recursiveExtractValue(\Graphpinator\Value\ResolvedValue $singleValue, array &$field) : \Graphpinator\Value\ResolvedValue
     {
         if (\count($field) === 0) {
             return $singleValue;
@@ -93,11 +92,12 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive
         return static::recursiveExtractValue($singleValue->{$currentWhere}->getValue(), $field);
     }
 
-    private static function recursiveValidateType(\Graphpinator\Type\Contract\Definition $definition, array& $field) : bool
+    private static function recursiveValidateType(\Graphpinator\Type\Contract\Definition $definition, array &$field) : bool
     {
         $definition = $definition->getShapingType();
 
         if (\count($field) === 0) {
+            //@phpcs:ignore SlevomatCodingStandard.PHP.UselessParentheses.UselessParentheses
             return $definition instanceof (static::TYPE);
         }
 

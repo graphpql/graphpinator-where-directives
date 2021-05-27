@@ -10,7 +10,12 @@ final class BooleanWhereDirective extends \Graphpinator\WhereDirectives\BaseWher
     protected const DESCRIPTION = 'Graphpinator booleanWhere directive.';
     protected const TYPE = \Graphpinator\Type\Spec\BooleanType::class;
 
-    protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
+    protected static function satisfiesCondition(bool $value, ?bool $equals) : bool
+    {
+        return !\is_bool($equals) || $value === $equals;
+    }
+
+    protected function getFieldDefinition() : \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
             \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
@@ -20,14 +25,5 @@ final class BooleanWhereDirective extends \Graphpinator\WhereDirectives\BaseWher
             \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
-    }
-
-    protected static function satisfiesCondition(bool $value, ?bool $equals) : bool
-    {
-        if (\is_bool($equals) && $value !== $equals) {
-            return false;
-        }
-
-        return true;
     }
 }
