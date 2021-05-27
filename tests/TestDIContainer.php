@@ -30,7 +30,7 @@ final class TestDIContainer
         ]);
     }
 
-    public static function getType(string $name): object
+    public static function getType(string $name) : object
     {
         if (\array_key_exists($name, self::$types)) {
             return self::$types[$name];
@@ -65,36 +65,36 @@ final class TestDIContainer
         return self::$types[$name];
     }
 
-    public static function getAccessor(): \Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor
+    public static function getAccessor() : \Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor
     {
         if (self::$accessor === null) {
             self::$accessor = new class implements \Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor {
-                public function getString(): \Graphpinator\ConstraintDirectives\StringConstraintDirective
+                public function getString() : \Graphpinator\ConstraintDirectives\StringConstraintDirective
                 {
                     return TestDIContainer::getType('stringConstraint');
                 }
 
-                public function getInt(): \Graphpinator\ConstraintDirectives\IntConstraintDirective
+                public function getInt() : \Graphpinator\ConstraintDirectives\IntConstraintDirective
                 {
                     return TestDIContainer::getType('intConstraint');
                 }
 
-                public function getFloat(): \Graphpinator\ConstraintDirectives\FloatConstraintDirective
+                public function getFloat() : \Graphpinator\ConstraintDirectives\FloatConstraintDirective
                 {
                     return TestDIContainer::getType('floatConstraint');
                 }
 
-                public function getList(): \Graphpinator\ConstraintDirectives\ListConstraintDirective
+                public function getList() : \Graphpinator\ConstraintDirectives\ListConstraintDirective
                 {
                     return TestDIContainer::getType('listConstraint');
                 }
 
-                public function getListInput(): \Graphpinator\ConstraintDirectives\ListConstraintInput
+                public function getListInput() : \Graphpinator\ConstraintDirectives\ListConstraintInput
                 {
                     return TestDIContainer::getType('ListConstraintInput');
                 }
 
-                public function getObject(): \Graphpinator\ConstraintDirectives\ObjectConstraintDirective
+                public function getObject() : \Graphpinator\ConstraintDirectives\ObjectConstraintDirective
                 {
                     return TestDIContainer::getType('objectConstraint');
                 }

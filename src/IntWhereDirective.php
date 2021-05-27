@@ -10,7 +10,20 @@ final class IntWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDir
     protected const DESCRIPTION = 'Graphpinator intWhere directive.';
     protected const TYPE = \Graphpinator\Type\Spec\IntType::class;
 
-    protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
+    protected static function satisfiesCondition(int $value, ?int $equals, ?int $greaterThan, ?int $lessThan) : bool
+    {
+        if (\is_int($equals) && $value !== $equals) {
+            return false;
+        }
+
+        if (\is_int($greaterThan) && $value < $greaterThan) {
+            return false;
+        }
+
+        return !\is_int($lessThan) || $value <= $lessThan;
+    }
+
+    protected function getFieldDefinition() : \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
             \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
@@ -22,22 +35,5 @@ final class IntWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDir
             \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
-    }
-
-    protected static function satisfiesCondition(int $value, ?int $equals, ?int $greaterThan, ?int $lessThan) : bool
-    {
-        if (\is_int($equals) && $value !== $equals) {
-            return false;
-        }
-
-        if (\is_int($greaterThan) && $value < $greaterThan) {
-            return false;
-        }
-
-        if (\is_int($lessThan) && $value > $lessThan) {
-            return false;
-        }
-
-        return true;
     }
 }

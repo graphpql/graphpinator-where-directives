@@ -12,9 +12,20 @@ final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDi
 
     public function __construct(
         private \Graphpinator\ConstraintDirectives\IntConstraintDirective $intConstraintDirective,
-    ) {}
+    )
+    {
+    }
 
-    protected function getFieldDefinition(): \Graphpinator\Argument\ArgumentSet
+    protected static function satisfiesCondition(array $value, ?int $minItems, ?int $maxItems) : bool
+    {
+        if (\is_int($minItems) && \count($value) < $minItems) {
+            return false;
+        }
+
+        return !\is_int($maxItems) || \count($value) <= $maxItems;
+    }
+
+    protected function getFieldDefinition() : \Graphpinator\Argument\ArgumentSet
     {
         return new \Graphpinator\Argument\ArgumentSet([
             \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
@@ -33,18 +44,5 @@ final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDi
             \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
-    }
-
-    protected static function satisfiesCondition(array $value, ?int $minItems, ?int $maxItems) : bool
-    {
-        if (\is_int($minItems) && \count($value) < $minItems) {
-            return false;
-        }
-
-        if (\is_int($maxItems) && \count($value) > $maxItems) {
-            return false;
-        }
-
-        return true;
     }
 }

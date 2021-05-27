@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Graphpinator\WhereDirectives\Tests\Integration;
 
-use Infinityloop\Utils\Json;
+use \Infinityloop\Utils\Json;
 
 final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,7 +31,7 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider simpleDataProvider
-     * @param Json $request
+     * @param \Infinityloop\Utils\Json $request
      */
     public function testSimple(Json $request) : void
     {
@@ -69,7 +69,7 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
                             ),
                         ]);
                     }
-                }
+                },
             ),
         );
     }
