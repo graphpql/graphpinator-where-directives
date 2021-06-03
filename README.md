@@ -37,7 +37,7 @@ This package contains following directives:
 All directives have three common arguments
 
 - `field` (String) - This optional argument allows filtering of nested structures. Represents path to navigate into filtered value.
-    - For more inforamtion visit following [section](#Field-argument).
+    - For more information visit following [section](#Field-argument).
 - `orNull` (Boolean) - Whether to accept null as a value which satisfies condition (default false).
 - `not` (Boolean) - Negate the result of value conditions (default false).
 
