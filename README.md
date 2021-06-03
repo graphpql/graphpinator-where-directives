@@ -20,6 +20,8 @@ Install package using composer
 
 In order to enable where directives on your server, the only thing you need to do is to put selected directives to your `Container`. You may use all or only some.
 
+> `ListWhereDirective` has special requirement on `infinityloop-dev/graphpinator-constraint-directives`, which needs be enabled first if you with to use `@listWhere`.
+
 This package contains following directives:
 
 - `\Graphpinator\WhereDirectives\StringWhereDirective`
@@ -27,8 +29,6 @@ This package contains following directives:
 - `\Graphpinator\WhereDirectives\FloatWhereDirective`
 - `\Graphpinator\WhereDirectives\BooleanWhereDirective`
 - `\Graphpinator\WhereDirectives\ListWhereDirective`
-
-> `ListWhereDirective` has special requirement on `infinityloop-dev/graphpinator-constraint-directives`, which needs be enabled first if you with to use `@listWhere`.
 
 ### Directive options
 
