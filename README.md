@@ -28,7 +28,7 @@ This package contains following directives:
 - `\Graphpinator\WhereDirectives\BooleanWhereDirective`
 - `\Graphpinator\WhereDirectives\ListWhereDirective`
 
-> `ListWhereDirective` has special requirement, it uses `infinityloop-dev/graphpinator-constraint-directives` which needs be enabled first if you with to use `@listWhere`.
+> `ListWhereDirective` has special requirement on `infinityloop-dev/graphpinator-constraint-directives`, which needs be enabled first if you with to use `@listWhere`.
 
 ### Directive options
 
