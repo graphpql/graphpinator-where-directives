@@ -26,7 +26,7 @@ This package contains following directives:
 - `\Graphpinator\WhereDirectives\BooleanWhereDirective`
 - `\Graphpinator\WhereDirectives\ListWhereDirective`
 
-In order to enable where directives on server, the only thing you need to do is to put selected directives to your `Container`. 
+In order to enable where directives on your server, the only thing you need to do is to put selected directives to your `Container`. 
 
 - You may use all or only some.
 - `ListWhereDirective` has special requirement, it uses `infinityloop-dev/graphpinator-constraint-directives` which needs be enabled first if you with to use `@listWhere`.
