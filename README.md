@@ -14,13 +14,13 @@ Install package using composer
 
 ## How to use
 
-> :warning: **These directives does NOT replace standard and optimal filtering provided by arguments and underlying technologies.** These directives serve only as an addition to these.
+> :warning: **These directives do NOT replace standard and optimal filtering provided by arguments and underlying technologies.** These directives serve only as an addition to these.
 
 > :warning: **These directive are executable directives. Their usage is requested by client.** Think twice before including this functionality on your server.
 
 In order to enable where directives on your server, the only thing you need to do is to put selected directives to your `Container`. You may use all or only some.
 
-> `ListWhereDirective` has special requirement on `infinityloop-dev/graphpinator-constraint-directives`, which needs be enabled first if you with to use `@listWhere`.
+> `ListWhereDirective` has a special requirement on `infinityloop-dev/graphpinator-constraint-directives`, which needs to be enabled first if you wish to use `@listWhere`.
 
 This package contains following directives:
 
@@ -72,8 +72,8 @@ This effectively means that `not` argument has lowest priority and negates even 
 
 ### Field argument
 
-Lets say we have a list of `BlogPost` objects with some fields in it. 
-Then, to recieve all blogposts, we could have query like this.
+Let's say we have a list of `BlogPost` objects with some fields in it. 
+Then, to receive all blogposts, we could have a query like this.
 
 ```graphql
 { blogposts { title content likeCount author { name } } }
