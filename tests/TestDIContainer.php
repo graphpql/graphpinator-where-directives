@@ -12,9 +12,9 @@ final class TestDIContainer
     private static ?\Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor $accessor = null;
     private static ?\Graphpinator\Container\Container $container = null;
 
-    public static function getTypeContainer() : \Graphpinator\Container\Container
+    public static function getTypeContainer() : \Graphpinator\Typesystem\Container
     {
-        return new \Graphpinator\Container\SimpleContainer([
+        return new \Graphpinator\SimpleContainer([
             'ListConstraintInput' => self::getType('ListConstraintInput'),
         ], [
             'stringConstraint' => self::getType('stringConstraint'),

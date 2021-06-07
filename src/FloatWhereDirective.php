@@ -8,7 +8,7 @@ final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereD
 {
     protected const NAME = 'floatWhere';
     protected const DESCRIPTION = 'Graphpinator floatWhere directive.';
-    protected const TYPE = \Graphpinator\Type\Spec\FloatType::class;
+    protected const TYPE = \Graphpinator\Typesystem\Spec\FloatType::class;
 
     protected static function satisfiesCondition(float $value, ?float $equals, ?float $greaterThan, ?float $lessThan) : bool
     {
@@ -23,16 +23,16 @@ final class FloatWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereD
         return !\is_float($lessThan) || $value <= $lessThan;
     }
 
-    protected function getFieldDefinition() : \Graphpinator\Argument\ArgumentSet
+    protected function getFieldDefinition() : \Graphpinator\Typesystem\Argument\ArgumentSet
     {
-        return new \Graphpinator\Argument\ArgumentSet([
-            \Graphpinator\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
+        return new \Graphpinator\Typesystem\Argument\ArgumentSet([
+            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
-            \Graphpinator\Argument\Argument::create('equals', \Graphpinator\Container\Container::Float()),
-            \Graphpinator\Argument\Argument::create('greaterThan', \Graphpinator\Container\Container::Float()),
-            \Graphpinator\Argument\Argument::create('lessThan', \Graphpinator\Container\Container::Float()),
-            \Graphpinator\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('equals', \Graphpinator\Container\Container::Float()),
+            \Graphpinator\Typesystem\Argument\Argument::create('greaterThan', \Graphpinator\Container\Container::Float()),
+            \Graphpinator\Typesystem\Argument\Argument::create('lessThan', \Graphpinator\Container\Container::Float()),
+            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
     }

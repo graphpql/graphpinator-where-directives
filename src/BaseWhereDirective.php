@@ -4,19 +4,19 @@ declare(strict_types = 1);
 
 namespace Graphpinator\WhereDirectives;
 
-abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive implements \Graphpinator\Directive\Contract\FieldLocation
+abstract class BaseWhereDirective extends \Graphpinator\Typesystem\Directive implements \Graphpinator\Typesystem\Location\FieldLocation
 {
     protected const REPEATABLE = true;
     protected const TYPE = '';
 
     public function validateFieldUsage(
-        \Graphpinator\Field\Field $field,
+        \Graphpinator\Typesystem\Field\Field $field,
         \Graphpinator\Value\ArgumentValueSet $arguments,
     ) : bool
     {
         $shapingType = $field->getType()->getShapingType();
 
-        if (!$shapingType instanceof \Graphpinator\Type\ListType) {
+        if (!$shapingType instanceof \Graphpinator\Typesystem\ListType) {
             return false;
         }
 
@@ -30,7 +30,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive impl
 
     public function resolveFieldBefore(\Graphpinator\Value\ArgumentValueSet $arguments) : string
     {
-        return \Graphpinator\Directive\FieldDirectiveResult::NONE;
+        return \Graphpinator\Typesystem\Location\FieldLocation::NONE;
     }
 
     public function resolveFieldAfter(
@@ -58,7 +58,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive impl
             }
         }
 
-        return \Graphpinator\Directive\FieldDirectiveResult::NONE;
+        return \Graphpinator\Typesystem\Location\FieldLocation::NONE;
     }
 
     private static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $fieldStr) : string|int|float|bool|array|null
@@ -92,7 +92,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive impl
         return static::recursiveExtractValue($singleValue->{$currentWhere}->getValue(), $field);
     }
 
-    private static function recursiveValidateType(\Graphpinator\Type\Contract\Definition $definition, array &$field) : bool
+    private static function recursiveValidateType(\Graphpinator\Typesystem\Contract\Type $definition, array &$field) : bool
     {
         $definition = $definition->getShapingType();
 
@@ -104,14 +104,14 @@ abstract class BaseWhereDirective extends \Graphpinator\Directive\Directive impl
         $currentWhere = \array_pop($field);
 
         if (\is_numeric($currentWhere)) {
-            if ($definition instanceof \Graphpinator\Type\ListType) {
+            if ($definition instanceof \Graphpinator\Typesystem\ListType) {
                 return self::recursiveValidateType($definition->getInnerType(), $field);
             }
 
             return false;
         }
 
-        if ($definition instanceof \Graphpinator\Type\Type && $definition->getFields()->offsetExists($currentWhere)) {
+        if ($definition instanceof \Graphpinator\Typesystem\Type && $definition->getFields()->offsetExists($currentWhere)) {
             return self::recursiveValidateType($definition->getFields()->offsetGet($currentWhere)->getType(), $field);
         }
 
