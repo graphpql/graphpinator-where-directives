@@ -30,14 +30,14 @@ final class StringWhereDirective extends \Graphpinator\WhereDirectives\BaseWhere
     protected function getFieldDefinition() : \Graphpinator\Typesystem\Argument\ArgumentSet
     {
         return new \Graphpinator\Typesystem\Argument\ArgumentSet([
-            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
-            \Graphpinator\Typesystem\Argument\Argument::create('equals', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('contains', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('startsWith', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('endsWith', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('equals', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('contains', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('startsWith', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('endsWith', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
     }

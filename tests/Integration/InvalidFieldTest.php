@@ -55,14 +55,14 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
                         return new \Graphpinator\Field\ResolvableFieldSet([
                             \Graphpinator\Field\ResolvableField::create(
                                 'stringField',
-                                \Graphpinator\Container\Container::String()->notNull(),
+                                \Graphpinator\Typesystem\Container::String()->notNull(),
                                 static function ($parent) : string {
                                     return 'abc';
                                 },
                             ),
                             \Graphpinator\Field\ResolvableField::create(
                                 'listField',
-                                \Graphpinator\Container\Container::String()->notNullList(),
+                                \Graphpinator\Typesystem\Container::String()->notNullList(),
                                 static function ($parent) : array {
                                     return ['aaa', 'bbb', 'ccc', 'aaa', 'abc'];
                                 },

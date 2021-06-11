@@ -10,7 +10,7 @@ final class TestDIContainer
 
     private static array $types = [];
     private static ?\Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor $accessor = null;
-    private static ?\Graphpinator\Container\Container $container = null;
+    private static ?\Graphpinator\Typesystem\Container $container = null;
 
     public static function getTypeContainer() : \Graphpinator\Typesystem\Container
     {

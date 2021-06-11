@@ -28,20 +28,20 @@ final class ListWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDi
     protected function getFieldDefinition() : \Graphpinator\Typesystem\Argument\ArgumentSet
     {
         return new \Graphpinator\Typesystem\Argument\ArgumentSet([
-            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
-            \Graphpinator\Typesystem\Argument\Argument::create('minItems', \Graphpinator\Container\Container::Int())
+            \Graphpinator\Typesystem\Argument\Argument::create('minItems', \Graphpinator\Typesystem\Container::Int())
                 ->addDirective(
                     $this->intConstraintDirective,
                     ['min' => 0],
                 ),
-            \Graphpinator\Typesystem\Argument\Argument::create('maxItems', \Graphpinator\Container\Container::Int())
+            \Graphpinator\Typesystem\Argument\Argument::create('maxItems', \Graphpinator\Typesystem\Container::Int())
                 ->addDirective(
                     $this->intConstraintDirective,
                     ['min' => 0],
                 ),
-            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
     }

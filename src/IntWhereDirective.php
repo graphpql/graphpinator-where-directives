@@ -26,13 +26,13 @@ final class IntWhereDirective extends \Graphpinator\WhereDirectives\BaseWhereDir
     protected function getFieldDefinition() : \Graphpinator\Typesystem\Argument\ArgumentSet
     {
         return new \Graphpinator\Typesystem\Argument\ArgumentSet([
-            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Container\Container::String()),
-            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('field', \Graphpinator\Typesystem\Container::String()),
+            \Graphpinator\Typesystem\Argument\Argument::create('not', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
-            \Graphpinator\Typesystem\Argument\Argument::create('equals', \Graphpinator\Container\Container::Int()),
-            \Graphpinator\Typesystem\Argument\Argument::create('greaterThan', \Graphpinator\Container\Container::Int()),
-            \Graphpinator\Typesystem\Argument\Argument::create('lessThan', \Graphpinator\Container\Container::Int()),
-            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Container\Container::Boolean()->notNull())
+            \Graphpinator\Typesystem\Argument\Argument::create('equals', \Graphpinator\Typesystem\Container::Int()),
+            \Graphpinator\Typesystem\Argument\Argument::create('greaterThan', \Graphpinator\Typesystem\Container::Int()),
+            \Graphpinator\Typesystem\Argument\Argument::create('lessThan', \Graphpinator\Typesystem\Container::Int()),
+            \Graphpinator\Typesystem\Argument\Argument::create('orNull', \Graphpinator\Typesystem\Container::Boolean()->notNull())
                 ->setDefaultValue(false),
         ]);
     }
