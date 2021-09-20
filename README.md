@@ -16,7 +16,7 @@ Install package using composer
 
 > :warning: **These directives do NOT replace standard and optimal filtering provided by arguments and underlying technologies.** These directives serve only as an addition to these.
 
-> :warning: **These directive are executable directives. Their usage is requested by client.** Think twice before including this functionality on your server.
+> :warning: **These directives are executable directives. Their usage is requested by client.** Think twice before including this functionality on your server.
 
 In order to enable where directives on your server, the only thing you need to do is to put selected directives to your `Container`. You may use all or only some.
 
