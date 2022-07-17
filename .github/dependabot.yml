@@ -3,4 +3,6 @@ updates:
 - package-ecosystem: composer
   directory: "/"
   schedule:
-    interval: weekly
+    interval: monthly
+    time: "04:00"
+
