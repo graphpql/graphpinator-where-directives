@@ -55,6 +55,9 @@ final class TestDIContainer
             'objectConstraint' => new \Graphpinator\ConstraintDirectives\ObjectConstraintDirective(
                 self::getAccessor(),
             ),
+            'ObjectConstraintInput' => new \Graphpinator\ConstraintDirectives\ObjectConstraintInput(
+                self::getAccessor(),
+            ),
             'stringWhere' => new \Graphpinator\WhereDirectives\StringWhereDirective(),
             'intWhere' => new \Graphpinator\WhereDirectives\IntWhereDirective(),
             'floatWhere' => new \Graphpinator\WhereDirectives\FloatWhereDirective(),
@@ -97,6 +100,11 @@ final class TestDIContainer
                 public function getObject() : \Graphpinator\ConstraintDirectives\ObjectConstraintDirective
                 {
                     return TestDIContainer::getType('objectConstraint');
+                }
+
+                public function getObjectInput() : \Graphpinator\ConstraintDirectives\ObjectConstraintInput
+                {
+                    return TestDIContainer::getType('ObjectConstraintInput');
                 }
             };
         }
