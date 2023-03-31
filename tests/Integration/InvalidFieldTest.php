@@ -42,28 +42,28 @@ final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
     private function getGraphpinator() : \Graphpinator\Graphpinator
     {
         return new \Graphpinator\Graphpinator(
-            new \Graphpinator\Type\Schema(
+            new \Graphpinator\Typesystem\Schema(
                 \Graphpinator\WhereDirectives\Tests\TestDIContainer::getTypeContainer(),
-                new class extends \Graphpinator\Type\Type {
+                new class extends \Graphpinator\Typesystem\Type {
                     public function validateNonNullValue(mixed $rawValue) : bool
                     {
                         return true;
                     }
 
-                    protected function getFieldDefinition() : \Graphpinator\Field\ResolvableFieldSet
+                    protected function getFieldDefinition() : \Graphpinator\Typesystem\Field\ResolvableFieldSet
                     {
-                        return new \Graphpinator\Field\ResolvableFieldSet([
-                            \Graphpinator\Field\ResolvableField::create(
+                        return new \Graphpinator\Typesystem\Field\ResolvableFieldSet([
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'stringField',
                                 \Graphpinator\Typesystem\Container::String()->notNull(),
-                                static function ($parent) : string {
+                                static function () : string {
                                     return 'abc';
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'listField',
                                 \Graphpinator\Typesystem\Container::String()->notNullList(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return ['aaa', 'bbb', 'ccc', 'aaa', 'abc'];
                                 },
                             ),

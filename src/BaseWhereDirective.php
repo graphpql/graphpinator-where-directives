@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Graphpinator\WhereDirectives;
 
+use \Graphpinator\Typesystem\Location\SelectionDirectiveResult;
+
 abstract class BaseWhereDirective extends \Graphpinator\Typesystem\Directive implements \Graphpinator\Typesystem\Location\FieldLocation
 {
     protected const REPEATABLE = true;
@@ -28,15 +30,15 @@ abstract class BaseWhereDirective extends \Graphpinator\Typesystem\Directive imp
         return self::recursiveValidateType($shapingType->getInnerType(), $where);
     }
 
-    public function resolveFieldBefore(\Graphpinator\Value\ArgumentValueSet $arguments) : string
+    public function resolveFieldBefore(\Graphpinator\Value\ArgumentValueSet $arguments) : SelectionDirectiveResult
     {
-        return \Graphpinator\Typesystem\Location\FieldLocation::NONE;
+        return SelectionDirectiveResult::NONE;
     }
 
     public function resolveFieldAfter(
         \Graphpinator\Value\ArgumentValueSet $arguments,
         \Graphpinator\Value\FieldValue $fieldValue,
-    ) : string
+    ) : SelectionDirectiveResult
     {
         $listValue = $fieldValue->getValue();
         \assert($listValue instanceof \Graphpinator\Value\ListResolvedValue);
@@ -58,7 +60,7 @@ abstract class BaseWhereDirective extends \Graphpinator\Typesystem\Directive imp
             }
         }
 
-        return \Graphpinator\Typesystem\Location\FieldLocation::NONE;
+        return SelectionDirectiveResult::NONE;
     }
 
     private static function extractValue(\Graphpinator\Value\ResolvedValue $singleValue, ?string $fieldStr) : string|int|float|bool|array|null
@@ -86,10 +88,10 @@ abstract class BaseWhereDirective extends \Graphpinator\Typesystem\Directive imp
                 return new \Graphpinator\Value\NullResolvedValue($singleValue->getType());
             }
 
-            return static::recursiveExtractValue($singleValue->offsetGet($currentWhere), $field);
+            return self::recursiveExtractValue($singleValue->offsetGet($currentWhere), $field);
         }
 
-        return static::recursiveExtractValue($singleValue->{$currentWhere}->getValue(), $field);
+        return self::recursiveExtractValue($singleValue->{$currentWhere}->getValue(), $field);
     }
 
     private static function recursiveValidateType(\Graphpinator\Typesystem\Contract\Type $definition, array &$field) : bool

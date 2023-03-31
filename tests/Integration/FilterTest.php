@@ -331,84 +331,84 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
     private function getGraphpinator() : \Graphpinator\Graphpinator
     {
         return new \Graphpinator\Graphpinator(
-            new \Graphpinator\Type\Schema(
+            new \Graphpinator\Typesystem\Schema(
                 \Graphpinator\WhereDirectives\Tests\TestDIContainer::getTypeContainer(),
-                new class extends \Graphpinator\Type\Type {
+                new class extends \Graphpinator\Typesystem\Type {
                     public function validateNonNullValue(mixed $rawValue) : bool
                     {
                         return true;
                     }
 
-                    protected function getFieldDefinition() : \Graphpinator\Field\ResolvableFieldSet
+                    protected function getFieldDefinition() : \Graphpinator\Typesystem\Field\ResolvableFieldSet
                     {
-                        return new \Graphpinator\Field\ResolvableFieldSet([
-                            \Graphpinator\Field\ResolvableField::create(
+                        return new \Graphpinator\Typesystem\Field\ResolvableFieldSet([
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'stringList',
                                 \Graphpinator\Typesystem\Container::String()->notNullList(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return ['aaa', 'bbb', 'ccc', 'aaa', 'abc'];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'stringNullList',
                                 \Graphpinator\Typesystem\Container::String()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return ['aaa', 'bbb', null, 'ccc', 'aaa', 'abc'];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'intList',
                                 \Graphpinator\Typesystem\Container::Int()->notNullList(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [1, 2, 3, 4, 5];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'intNullList',
                                 \Graphpinator\Typesystem\Container::Int()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [1, 2, null, 3, 4, 5];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'floatList',
                                 \Graphpinator\Typesystem\Container::Float()->notNullList(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [1.00, 2.00, 3.00, 4.00, 5.00];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'floatNullList',
                                 \Graphpinator\Typesystem\Container::Float()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [1.00, 2.00, null, 3.00, 4.00, 5.00];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'boolList',
                                 \Graphpinator\Typesystem\Container::Boolean()->notNullList(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [true, false, false];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'boolNullList',
                                 \Graphpinator\Typesystem\Container::Boolean()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [true, false, null, false];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'listList',
                                 \Graphpinator\Typesystem\Container::Int()->notNull()->list()->notNull()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]];
                                 },
                             ),
-                            \Graphpinator\Field\ResolvableField::create(
+                            \Graphpinator\Typesystem\Field\ResolvableField::create(
                                 'listNullList',
                                 \Graphpinator\Typesystem\Container::Int()->notNull()->list()->list()->notNull(),
-                                static function ($parent) : array {
+                                static function () : array {
                                     return [[1, 0], [2, 1], [3, 2], null, [4, 3], [5, 4]];
                                 },
                             ),
