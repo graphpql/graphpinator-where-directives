@@ -8,7 +8,7 @@ use \Infinityloop\Utils\Json;
 
 final class InvalidFieldTest extends \PHPUnit\Framework\TestCase
 {
-    public function simpleDataProvider() : array
+    public static function simpleDataProvider() : array
     {
         return [
             [

@@ -8,7 +8,7 @@ use \Infinityloop\Utils\Json;
 
 final class FilterTest extends \PHPUnit\Framework\TestCase
 {
-    public function stringDataProvider() : array
+    public static function stringDataProvider() : array
     {
         return [
             [
@@ -98,7 +98,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function simpleIntDataProvider() : array
+    public static function simpleIntDataProvider() : array
     {
         return [
             [
@@ -152,7 +152,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function simpleFloatDataProvider() : array
+    public static function simpleFloatDataProvider() : array
     {
         return [
             [
@@ -200,7 +200,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function simpleBoolDataProvider() : array
+    public static function simpleBoolDataProvider() : array
     {
         return [
             [
@@ -230,7 +230,7 @@ final class FilterTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function simpleListDataProvider() : array
+    public static function simpleListDataProvider() : array
     {
         return [
             [

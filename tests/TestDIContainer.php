@@ -6,8 +6,6 @@ namespace Graphpinator\WhereDirectives\Tests;
 
 final class TestDIContainer
 {
-    use \Nette\StaticClass;
-
     private static array $types = [];
     private static ?\Graphpinator\ConstraintDirectives\ConstraintDirectiveAccessor $accessor = null;
     private static ?\Graphpinator\Typesystem\Container $container = null;
